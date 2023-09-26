@@ -1,0 +1,45 @@
+.sidebar {
+
+    margin-left: 1%;
+    margin-top: 1rem;
+}
+
+header {
+
+    color: aliceblue;
+    margin-top: 1%;
+}
+
+.enter {
+
+     width: 85%;
+}
+
+.currentday {
+
+    visibility: hidden;
+}
+
+body {
+
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 24%;
+}
+
+.clear {
+    margin-top: 1rem;
+    width: 100%;
+    
+}
+
+body {
+  max-height: 100%;
+  background-image: linear-gradient(to top, #434343, #333333, #242424, #161616, #000000);
+}
+
+.citylist {
+    margin-bottom: 1rem;
+    margin-left: 10%;
+    width: 80%;
+
+}
