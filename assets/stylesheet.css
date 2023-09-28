@@ -1,3 +1,4 @@
+
 .sidebar {
 
     margin-left: 1%;
@@ -34,12 +35,34 @@ body {
 
 body {
   max-height: 100%;
-  background-image: linear-gradient(to top, #434343, #333333, #242424, #161616, #000000);
+  background-color: black;
 }
 
-.citylist {
+.cities {
     margin-bottom: 1rem;
     margin-left: 10%;
     width: 80%;
 
 }
+
+#dayscontainer {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 1%;
+}
+
+#closealert {
+
+    margin-left: 20px;
+}
+
+.alert-danger{
+
+    display: flex;
+    justify-content: space-evenly;
+    width: 25%;
+    margin-left: 37%;
+}
+
