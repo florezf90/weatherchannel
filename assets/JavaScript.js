@@ -3,11 +3,11 @@ var inputcity = $(".enter")
 var currentday = $(".currentday")
 var clearbtn = $(".clear")
 var sidebar = $(".card-sidebar")
-var listcities = JSON.parse(localStorage.getItem("city: ")) || [];
 var dayscontainer = $("<div>").attr("id", "dayscontainer")
 currentday.append(dayscontainer)
 var loopExecuted  = false;
-
+var listcities = JSON.parse(localStorage.getItem("city: ")) || [];
+var cityObjects = [];
 
 function clearLocalStorage() {
     localStorage.removeItem("city: ");
@@ -87,6 +87,7 @@ $(document).ready(function() {
     
             currentday.css("visibility", "visible");
             listcities.push(lysting.attr("id"));
+
             localStorage.setItem("city: ", JSON.stringify(listcities));
             console.log(listcities);
     
@@ -108,12 +109,7 @@ $(document).ready(function() {
                 // Call renderDayInfo to update the card with actual data
                 renderDayInfo(data, i * 8, days); // Data for every 8th element (represents a day)
             }
-            lysting.on("click", function() {
-                // Update the cards with data for the selected city
-                for (let i = 0; i < 5; i++) {
-                    renderDayInfo(data, i, $("#day" + i));
-                }
-            });
+
         })
         .catch(function(error) {
             // Handle errors here
@@ -132,7 +128,44 @@ $(document).ready(function() {
             $("header").append(alert);
         });
     });
-
+    
+    $(document).on("click", ".cities", function() {
+        // Get the city name from the ID of the clicked button
+        var cityName = $(this).attr("id");
+    
+        // Build the API URL for the clicked city
+        var urlink = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=4d1ecce74c1b33b84518f1a209b03951&units=metric`;
+    
+        // Fetch weather data for the clicked city
+        fetch(urlink)
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Invalid city name. Please try again.");
+            }
+        })
+        .then(function(data) {
+            // Clear the existing cards
+            dayscontainer.empty();
+    
+            // Create and append forecasts for the next 5 days
+            for (let i = 0; i < 5; i++) {
+                var days = $("<div>").addClass("card text-dark bg-light mb-3").css("max-width", "18rem").attr("id", "day" + i);
+                dayscontainer.append(days);
+    
+                // Initialize card with loading text
+                var header = $("<div>").addClass("card-header").text("Date: Loading...");
+                days.append(header);
+    
+                var body = $("<div>").addClass("card-body");
+                days.append(body);
+    
+                // Call renderDayInfo to update the card with actual data
+                renderDayInfo(data, i * 8, days); // Data for every 8th element (represents a day)
+            }
+        })
+    });
     // Populate sidebar with saved cities
     if (listcities !== null) {
         for (let i = 0; i < listcities.length; i++) {
@@ -140,4 +173,7 @@ $(document).ready(function() {
             sidebar.append(history);
         }
     }
+
 });
+
+  
