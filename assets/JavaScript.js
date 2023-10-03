@@ -28,7 +28,21 @@ function renderDayInfo(data, dayIndex, dayCard) {
         dayCard.find(".card-body").empty(); // Clear previous content
 
         // Weather description
-        dayCard.find(".card-body").append($("<p>").addClass("card-text").text("Weather: " + dayData.weather[0].description));
+        var description = dayData.weather[0].description;
+        dayCard.find(".card-body").append($("<p>").addClass("card-text").text("Weather: " + description));
+
+        // Add weather icon based on description
+        var weatherIcon = $("<i>").addClass("fas");
+        if (description.includes("rain")) {
+            weatherIcon.addClass("fa-cloud-showers-heavy");
+        } else if (description.includes("cloud")) {
+            weatherIcon.addClass("fa-cloud");
+        } else if (description.includes("sun")) {
+            weatherIcon.addClass("fa-sun");
+        } else {
+            weatherIcon.addClass("fa-brands fa-skyatlas"); 
+        }
+        dayCard.find(".card-body").append(weatherIcon);
 
         // Temperature
         var temperature = $("<p>").addClass("card-text").text("Temperature: " + dayData.main.temp + "°C");
@@ -37,6 +51,10 @@ function renderDayInfo(data, dayIndex, dayCard) {
         // Humidity
         var humidity = $("<p>").addClass("card-text").text("Humidity: " + dayData.main.humidity + "%");
         dayCard.find(".card-body").append(humidity);
+
+        // Wind Speed
+        var windSpeed = $("<p>").addClass("card-text").text("Wind Speed: " + dayData.wind.speed + " m/s");
+        dayCard.find(".card-body").append(windSpeed);
     }
 }
 
