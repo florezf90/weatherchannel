@@ -29,6 +29,7 @@ body {
 
 .clear {
     margin-top: 1rem;
+    margin-bottom: 1rem;
     width: 100%;
     
 }
@@ -65,4 +66,5 @@ body {
     width: 25%;
     margin-left: 37%;
 }
+
 
